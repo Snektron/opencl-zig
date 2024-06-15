@@ -106,7 +106,7 @@ pub fn main() !void {
     std.log.info("compiling kernel...", .{});
 
     const source =
-        \\kernel void saxpy(global float* y, global const float* x, const float a, const ulong size) {
+        \\kernel void saxpy(global float* y, global const float* x, const float a) {
         \\    const size_t gid = get_global_id(0);
         \\    y[gid] += x[gid] * a;
         \\}
@@ -157,7 +157,6 @@ pub fn main() !void {
     try kernel.setArg(@TypeOf(d_y), 0, d_y);
     try kernel.setArg(@TypeOf(d_x), 1, d_x);
     try kernel.setArg(f32, 2, a);
-    try kernel.setArg(u64, 3, size);
 
     const saxpy_complete = try queue.enqueueNDRangeKernel(
         kernel,
