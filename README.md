@@ -14,6 +14,8 @@ The bindings are hand-written and added on a when-required basis: Unlike Vulkan,
 
 A saxpy example is available in [examples/saxpy.zig](examples/saxpy.zig). It can be executed by running `zig build --build-file $(pwd)/examples/build.zig run-saxpy` in the opencl-zig root directory.
 
+For uses of this project, see the [Zig SPIR-V test executor](https://github.com/Snektron/zig-spirv-test-executor) and the [Zig OpenCL SPIR-V Demos](https://github.com/Snektron/zig-opencl-spirv-demos/).
+
 ## Usage
 
 opencl-zig can be included in a Zig project as a regular Zig dependency. First, add a dependency to the bindings to your `build.zig.zon`:
