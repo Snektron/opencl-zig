@@ -1,0 +1,10 @@
+.{
+    .name = "opencl-zig-examples",
+    .version = "0.1.0",
+    .dependencies = .{
+        .opencl = .{
+            .path = "..",
+        },
+    },
+    .paths = .{""},
+}
