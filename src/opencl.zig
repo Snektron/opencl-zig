@@ -152,7 +152,7 @@ pub const Device = extern struct {
 
     id: c.cl_device_id,
 
-    pub fn getName(device: Device, a: Allocator) ![]const u8 {
+    pub fn getName(device: Device, a: Allocator) ![:0]const u8 {
         var name_size: usize = undefined;
         switch (c.clGetDeviceInfo(device.id, c.CL_DEVICE_NAME, 0, null, &name_size)) {
             c.CL_SUCCESS => {},
