@@ -1,5 +1,6 @@
 .{
-    .name = "opencl-zig-examples",
+    .fingerprint = 0x1bac600bf16268a4,
+    .name = .opencl_zig_examples,
     .version = "0.1.0",
     .dependencies = .{
         .opencl = .{
