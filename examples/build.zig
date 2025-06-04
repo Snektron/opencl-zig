@@ -21,6 +21,9 @@ pub fn build(b: *std.Build) void {
 
     const saxpy_run_cmd = b.addRunArtifact(saxpy_exe);
     saxpy_run_cmd.step.dependOn(b.getInstallStep());
+    if (b.args) |args| {
+        saxpy_run_cmd.addArgs(args);
+    }
 
     const saxpy_run_step = b.step("run-saxpy", "Run the saxpy example");
     saxpy_run_step.dependOn(&saxpy_run_cmd.step);

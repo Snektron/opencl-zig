@@ -1,5 +1,6 @@
 .{
-    .name = "opencl",
+    .fingerprint = 0xf5d708efdddf805b,
+    .name = .opencl,
     .version = "0.1.0",
     .dependencies = .{
         .opencl_headers = .{

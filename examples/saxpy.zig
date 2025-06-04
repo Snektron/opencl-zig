@@ -3,7 +3,7 @@ const Allocator = std.mem.Allocator;
 
 const cl = @import("opencl");
 
-pub const std_options = .{
+pub const std_options: std.Options = .{
     .log_level = .info,
 };
 
