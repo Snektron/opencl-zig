@@ -5,7 +5,7 @@
     .dependencies = .{
         .opencl_headers = .{
             .url = "https://github.com/KhronosGroup/OpenCL-Headers/archive/v2024.05.08.tar.gz",
-            .hash = "1220ad35211a500b402000c3fb50dbf5754a4cd41539cdde4b00195af47dde2cf36f",
+            .hash = "N-V-__8AAN3BBwCtNSEaUAtAIADD-1Db9XVKTNQVOc3eSwAZ",
         },
     },
 
