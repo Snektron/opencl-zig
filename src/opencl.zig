@@ -317,6 +317,16 @@ pub const CommandQueue = extern struct {
         }
     }
 
+    pub fn finish(queue: CommandQueue) !void {
+        return switch (c.clFinish(queue.handle)) {
+            c.CL_SUCCESS => {},
+            c.CL_INVALID_COMMAND_QUEUE => unreachable,
+            c.CL_OUT_OF_RESOURCES => error.OutOfResources,
+            c.CL_OUT_OF_HOST_MEMORY => error.OutOfMemory,
+            else => @panic("Undocumented error"),
+        };
+    }
+
     pub fn retain(queue: CommandQueue) !void {
         switch (c.clRetainCommandQueue(queue.handle)) {
             c.CL_SUCCESS => {},
