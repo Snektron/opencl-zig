@@ -2,6 +2,7 @@
     .fingerprint = 0x1bac600bf16268a4,
     .name = .opencl_zig_examples,
     .version = "0.1.0",
+    .minimum_zig_version = "0.15.0-dev.1160+e43617e68",
     .dependencies = .{
         .opencl = .{
             .path = "..",

@@ -11,10 +11,12 @@ pub fn build(b: *std.Build) void {
 
     const saxpy_exe = b.addExecutable(.{
         .name = "saxpy",
-        .root_source_file = b.path("saxpy.zig"),
-        .target = target,
-        .link_libc = true,
-        .optimize = optimize,
+        .root_module = b.addModule("saxpy", .{
+            .root_source_file = b.path("saxpy.zig"),
+            .target = target,
+            .optimize = optimize,
+            .link_libc = true,
+        }),
     });
     saxpy_exe.root_module.addImport("opencl", opencl);
     b.installArtifact(saxpy_exe);

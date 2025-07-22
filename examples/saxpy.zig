@@ -37,8 +37,8 @@ const Options = struct {
         }
 
         if (help) {
-            const out = std.io.getStdOut();
-            try out.writer().writeAll(
+            var out: std.fs.File = .stdout();
+            try out.writeAll(
                 \\usage: saxpy [options...]
                 \\
                 \\Options:
