@@ -2,6 +2,7 @@
     .fingerprint = 0xf5d708efdddf805b,
     .name = .opencl,
     .version = "0.1.0",
+    .minimum_zig_version = "0.15.0-dev.1160+e43617e68",
     .dependencies = .{
         .opencl_headers = .{
             .url = "https://github.com/KhronosGroup/OpenCL-Headers/archive/v2024.05.08.tar.gz",
