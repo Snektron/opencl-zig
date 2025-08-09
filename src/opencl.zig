@@ -53,6 +53,7 @@ pub fn getPlatforms(a: Allocator) ![]const Platform {
     switch (c.clGetPlatformIDs(0, null, &num_platforms)) {
         c.CL_SUCCESS => {},
         c.CL_INVALID_VALUE => unreachable,
+        c.CL_PLATFORM_NOT_FOUND_KHR => return &.{},
         c.CL_OUT_OF_HOST_MEMORY => return error.OutOfMemory,
         else => @panic("Undocumented error"),
     }
