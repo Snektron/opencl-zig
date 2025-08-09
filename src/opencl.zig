@@ -226,7 +226,8 @@ pub const Context = extern struct {
     handle: c.cl_context,
 
     pub fn create(devices: []const Device, properties: Properties) !Context {
-        var cl_props = std.BoundedArray(c.cl_context_properties, 3).init(0) catch unreachable;
+        var buf: [3]c.cl_context_properties = undefined;
+        var cl_props = std.ArrayListUnmanaged(c.cl_context_properties).initBuffer(&buf);
 
         if (properties.platform) |platform| {
             cl_props.appendAssumeCapacity(c.CL_CONTEXT_PLATFORM);
@@ -236,7 +237,7 @@ pub const Context = extern struct {
 
         var status: int = undefined;
         const context = c.clCreateContext(
-            &cl_props.buffer,
+            cl_props.items.ptr,
             @intCast(devices.len),
             @ptrCast(devices.ptr),
             null,
