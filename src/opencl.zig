@@ -478,7 +478,7 @@ pub const Program = extern struct {
         const program = c.clCreateProgramWithSource(
             context.handle,
             @intCast(strings.len),
-            @constCast(@ptrCast(strings.ptr)),
+            @ptrCast(@constCast(strings.ptr)),
             lengths.ptr,
             &status,
         );
