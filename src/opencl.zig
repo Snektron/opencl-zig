@@ -2,9 +2,7 @@ const std = @import("std");
 const assert = std.debug.assert;
 const Allocator = std.mem.Allocator;
 
-pub const c = @cImport({
-    @cInclude("CL/opencl.h");
-});
+pub const c = @import("bindings.zig");
 
 pub const int = c.cl_int;
 pub const uint = c.cl_uint;
@@ -829,4 +827,9 @@ pub fn createBuffer(comptime T: type, context: Context, flags: MemFlags, size: u
 
 pub fn createBufferWithData(comptime T: type, context: Context, flags: MemFlags, data: []const T) !Buffer(T) {
     return try Buffer(T).createWithData(context, flags, data);
+}
+
+test "bindings" {
+    _ = c;
+    _ = waitForEvents;
 }
