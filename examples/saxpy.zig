@@ -16,8 +16,8 @@ const Options = struct {
     platform: ?[]const u8,
     device: ?[]const u8,
 
-    fn parse(a: Allocator) !Options {
-        var args = try std.process.argsWithAllocator(a);
+    fn parse(io: std.Io, args_: std.process.Args.Iterator) !Options {
+        var args = args_;
         _ = args.next(); // executable name
 
         var platform: ?[]const u8 = null;
@@ -37,8 +37,9 @@ const Options = struct {
         }
 
         if (help) {
-            var out: std.fs.File = .stdout();
-            try out.writeAll(
+            var buf: [1024]u8 = undefined;
+            var out = std.Io.File.stderr().writer(io, &buf);
+            try out.interface.writeAll(
                 \\usage: saxpy [options...]
                 \\
                 \\Options:
@@ -59,12 +60,19 @@ const Options = struct {
     }
 };
 
-pub fn main() !void {
+pub fn main(init: std.process.Init) !void {
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
     defer arena.deinit();
     const alloc = arena.allocator();
 
-    const options = try Options.parse(alloc);
+    var threaded: std.Io.Threaded = .init(alloc, .{
+        .environ = .empty,
+    });
+    defer threaded.deinit();
+    const io = threaded.io();
+
+    const args = try init.minimal.args.iterateAllocator(alloc);
+    const options = try Options.parse(io, args);
 
     const platforms = try cl.getPlatforms(alloc);
     std.log.info("{} opencl platform(s) available", .{platforms.len});
