@@ -16,7 +16,11 @@ pub fn build(b: *std.Build) void {
     // we should either package the OpenCL-ICD-Loader
     // with Zig or manually load function pointers
     // from the OpenCL library.
-    opencl.linkSystemLibrary("OpenCL", .{});
+    if (target.result.os.tag.isDarwin()) {
+        opencl.linkFramework("OpenCL", .{});
+    } else {
+        opencl.linkSystemLibrary("OpenCL", .{});
+    }
 
     const test_target = b.addTest(.{ .root_module = opencl });
     test_step.dependOn(&b.addRunArtifact(test_target).step);
